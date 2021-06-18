@@ -20,5 +20,6 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('kupon/import', 'App\Http\Controllers\Voyager\KuponController@import')->middleware('admin.user')->name('import.kupon');
+    Route::post('kupon/import', 'App\Http\Controllers\Voyager\KuponController@simpan')->middleware('admin.user')->name('simpan.kupon');
     Voyager::routes();
 });

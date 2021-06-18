@@ -1002,4 +1002,9 @@ class KuponController extends VoyagerBaseController
     {
         return view('vendor.voyager.kupon.import');
     }
+
+    public function simpan()
+    {
+        return 'ok';
+    }
 }
