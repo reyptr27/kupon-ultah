@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use TCG\Voyager\Database\Schema\SchemaManager;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
+use App\Imports\KuponImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KuponController extends VoyagerBaseController
 {
@@ -1003,8 +1005,11 @@ class KuponController extends VoyagerBaseController
         return view('vendor.voyager.kupon.import');
     }
 
-    public function simpan()
+    public function simpan(Request $request)
     {
-        return 'ok';
+        $file = $request->file('file')->store('import');
+
+        (new KuponImport)->import($file);
+        return back()->withStatus('Import data success!');
     }
 }

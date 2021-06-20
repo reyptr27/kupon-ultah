@@ -17,7 +17,27 @@
         <div class="col-md-12">
             <div class="panel panel-bordered">
                 <div class="panel-body">
-                    <form action="#">
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    <br>
+                    @endif
+
+                    <br>
+
+                    @if (isset($errors) && $errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        {{ $error }}
+                        @endforeach
+                    </div>
+                    <br>
+                    @endif
+
+                    <p><b><i>*only accept .xls .xlsx and .csv</i></b></p>
+
+                    <form action="{{ route('simpan.kupon') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
