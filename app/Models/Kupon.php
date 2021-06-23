@@ -10,6 +10,8 @@ class Kupon extends Model
     use HasFactory;
 
     protected $table = 'kupon';
+
+    // protected $primaryKey = 'kode_kupon';
   
     protected $fillable = [
         'kode_kupon',

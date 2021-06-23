@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -23,3 +24,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('kupon/import', 'App\Http\Controllers\Voyager\KuponController@simpan')->middleware('admin.user')->name('simpan.kupon');
     Voyager::routes();
 });
+
+Route::get('/', [TransaksiController::class, 'index'])->name('index.transaksi');
+Route::post('/', [TransaksiController::class, 'store'])->name('store.transaksi');
