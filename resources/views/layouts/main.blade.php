@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Reynaldo Putra">
+    <meta name="description" content="kupon-ulang-tahun-roti-mox">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Laravel">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

@@ -23,7 +23,9 @@
                         </svg>
                     </div>
                     <div class="div">
-                        <h5>Kode Kupon</h5>
+                        <h5 @error('kode_kupon') class="text-danger" @enderror>Kode Kupon @error('kode_kupon')
+                            | {{ $message }}
+                            @enderror</h5>
                         <input type="text" id="kupon" name="kupon" class="input" required>
                     </div>
                 </div>

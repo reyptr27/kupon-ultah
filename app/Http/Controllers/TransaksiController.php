@@ -41,20 +41,20 @@ class TransaksiController extends Controller
         /*
         mengambil nilai harga kupon 
         menggunakan query builder 
-        (menggunakan "value()" karna return auto int)
+        (menggunakan "value()" karena return auto int)
         */
         $hargakupon = DB::table('harga_kupon')->value('harga');
         //dd($hargakupon);
 
-        //mencari kode_kupon di tabel kupon
-        $kupon = Kupon::where('kode_kupon', '=', $request->kupon)->first();;
+        //mencari kode_kupon di tabel kupon 
+        $kupon = Kupon::where('kode_kupon', '=', $request->kupon)->first();
         //dd($kupon);
-
+        
         //mengubah validasi
         $kupon->validasi = 1;
         //update data
         $kupon->save();
-
+      
         //menghitung harga total
         $hargatotal = $kupon->jumlah * $hargakupon;
         //dd($hargatotal);
@@ -69,7 +69,9 @@ class TransaksiController extends Controller
             'validasi' => $kupon->validasi
         ]);
         
-        //return redirect()->route('noevent.show', $invoice);
+        dd($message);
+        //dd($transaksi);
+        return redirect()->route('success.transaksi', [$kupon]);
     }
 
     /**
@@ -115,5 +117,13 @@ class TransaksiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function success($id) 
+    {
+        //dd($id);
+        $kupon = Kupon::where('id', $id)->first();
+        //dd($kupon);
+        return view('berhasil')->with('kupon', $kupon);
     }
 }

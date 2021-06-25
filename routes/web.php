@@ -27,3 +27,4 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('/', [TransaksiController::class, 'index'])->name('index.transaksi');
 Route::post('/', [TransaksiController::class, 'store'])->name('store.transaksi');
+Route::get('/berhasil/{id}', [TransaksiController::class, 'success'])->name('success.transaksi');
