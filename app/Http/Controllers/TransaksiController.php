@@ -7,7 +7,7 @@ use App\Models\Kupon;
 use App\Models\HargaKupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Rules\ValidKupon;
+use Illuminate\Support\Facades\Crypt;
 
 class TransaksiController extends Controller
 {
@@ -88,7 +88,7 @@ class TransaksiController extends Controller
         ]);
         
         //dd($transaksi);
-        return redirect()->route('success.transaksi', [$kupon]);
+        return redirect()->route('success.transaksi', Crypt::encryptString($kupon->id));
     }
 
     /**
@@ -138,8 +138,10 @@ class TransaksiController extends Controller
 
     public function success($id) 
     {
+        //enkripsi url
+        $decryptid = Crypt::decryptString($id);
         //dd($id);
-        $kupon = Kupon::where('id', $id)->first();
+        $kupon = Kupon::findOrFail($decryptid);
         //dd($kupon);
         return view('berhasil')->with('kupon', $kupon);
     }
