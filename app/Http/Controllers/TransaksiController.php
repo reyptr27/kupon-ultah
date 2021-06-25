@@ -7,6 +7,7 @@ use App\Models\Kupon;
 use App\Models\HargaKupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Rules\ValidKupon;
 
 class TransaksiController extends Controller
 {
@@ -38,6 +39,23 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+           'kupon' => ['required', 'size:10', 'unique:transaksi,kode_kupon', 'exists:kupon,kode_kupon'],
+           'nama' => 'required|alpha|max:50',
+           'hp' => 'required|numeric|digits_between:10,15',
+        ], [
+            'kupon.required' => 'Harus diisi!',
+            'kupon.size' => 'Harus 10 digit!',
+            'kupon.unique' => 'Telah terpakai!',
+            'kupon.exists' => 'Anda salah!',
+            'nama.required' => 'Harus diisi!',
+            'nama.alpha' => 'Hanya alphabet!',
+            'nama.max' => 'Max 50 digit!',
+            'hp.required' => 'Harus diisi!',
+            'hp.numeric' => 'Hanya angka!',
+            'hp.digits_between' => 'Min 10 & max 15 digit!',
+        ]);
+
         /*
         mengambil nilai harga kupon 
         menggunakan query builder 
@@ -69,7 +87,6 @@ class TransaksiController extends Controller
             'validasi' => $kupon->validasi
         ]);
         
-        dd($message);
         //dd($transaksi);
         return redirect()->route('success.transaksi', [$kupon]);
     }

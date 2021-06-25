@@ -23,7 +23,7 @@
                         </svg>
                     </div>
                     <div class="div">
-                        <h5 @error('kode_kupon') class="text-danger" @enderror>Kode Kupon @error('kode_kupon')
+                        <h5 @error('kupon') class="text-danger" @enderror>Kode Kupon @error('kupon')
                             | {{ $message }}
                             @enderror</h5>
                         <input type="text" id="kupon" name="kupon" class="input" required>
@@ -37,7 +37,9 @@
                         </svg>
                     </div>
                     <div class="div">
-                        <h5>Nama</h5>
+                        <h5 @error('nama') class="text-danger" @enderror>Nama @error('nama')
+                            | {{ $message }}
+                            @enderror</h5>
                         <input type="text" id="nama" name="nama" class="input" required>
                     </div>
                 </div>
@@ -50,7 +52,9 @@
                         </svg>
                     </div>
                     <div class="div">
-                        <h5>No. HP</h5>
+                        <h5 @error('hp') class="text-danger" @enderror>No. HP @error('hp')
+                            | {{ $message }}
+                            @enderror</h5>
                         <input type="number" id="hp" name="hp" class="input" required>
                     </div>
                 </div>
