@@ -39,6 +39,7 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
+        //form validation
         $request->validate([
            'kupon' => ['required', 'size:10', 'unique:transaksi,kode_kupon', 'exists:kupon,kode_kupon'],
            'nama' => 'required|alpha|max:50',

@@ -43,7 +43,8 @@
                         <div class="form-group">
                             <input type="file" name="file" />
                             <br>
-                            <button type="submit" class="btn btn-primary">Import</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="voyager-book-download"></i> Import</button>
                         </div>
                     </form>
                 </div>

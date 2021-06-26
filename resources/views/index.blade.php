@@ -26,7 +26,8 @@
                         <h5 @error('kupon') class="text-danger" @enderror>Kode Kupon @error('kupon')
                             | {{ $message }}
                             @enderror</h5>
-                        <input type="text" id="kupon" name="kupon" class="input" required>
+                        <input type="text" id="kupon" name="kupon" class="input" onkeyup="return forceLower(this);"
+                            onblur="this.value=removeSpaces(this.value);" required>
                     </div>
                 </div>
                 <div class="input-div one">

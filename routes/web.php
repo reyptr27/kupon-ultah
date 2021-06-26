@@ -22,6 +22,8 @@ use App\Http\Controllers\TransaksiController;
 Route::group(['prefix' => 'admin'], function () {
     Route::get('kupon/import', 'App\Http\Controllers\Voyager\KuponController@import')->middleware('admin.user')->name('import.kupon');
     Route::post('kupon/import', 'App\Http\Controllers\Voyager\KuponController@simpan')->middleware('admin.user')->name('simpan.kupon');
+    Route::get('kupon/format', 'App\Http\Controllers\Voyager\KuponController@format')->middleware('admin.user')->name('format.kupon');
+    Route::post('kupon/format', 'App\Http\Controllers\Voyager\KuponController@hapus')->middleware('admin.user')->name('hapus.kupon');
     Voyager::routes();
 });
 

@@ -13,6 +13,13 @@ function remcl(){
 	}
 }
 
+function forceLower(strInput) {
+	strInput.value=strInput.value.toLowerCase();
+}
+
+function removeSpaces(string) {
+	return string.split(' ').join('');
+}
 
 inputs.forEach(input => {
 	input.addEventListener("focus", addcl);

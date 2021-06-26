@@ -17,6 +17,7 @@ use TCG\Voyager\Database\Schema\SchemaManager;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 use App\Imports\KuponImport;
+use App\Models\Kupon;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KuponController extends VoyagerBaseController
@@ -1012,4 +1013,17 @@ class KuponController extends VoyagerBaseController
         (new KuponImport)->import($file);
         return back()->withStatus('Import data success!');
     }
+
+    public function format()
+    {
+        return view('vendor.voyager.kupon.format');
+    }
+    
+    public function hapus()
+    {
+       //format data
+       DB::table('kupon')->delete();
+       return back()->withStatus('Format data success!');
+    }
+
 }
