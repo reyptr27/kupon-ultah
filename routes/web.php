@@ -25,8 +25,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('kupon/format', 'App\Http\Controllers\Voyager\KuponController@format')->middleware('admin.user')->name('format.kupon');
     Route::post('kupon/format', 'App\Http\Controllers\Voyager\KuponController@hapus')->middleware('admin.user')->name('hapus.kupon');
     Route::get('transaksi/data', 'App\Http\Controllers\Voyager\TransaksiController@export')->middleware('admin.user')->name('data.transaksi');
-    Route::post('transaksi/export', 'App\Http\Controllers\Voyager\TransaksiController@download')->middleware('admin.user')->name('download.transaksi');
-    Route::get('transaksi/export', 'App\Http\Controllers\Voyager\TransaksiController@download')->middleware('admin.user')->name('download.transaksi');
+    Route::post('transaksi/data', 'App\Http\Controllers\Voyager\TransaksiController@download')->middleware('admin.user')->name('download.transaksi');
+    Route::get('transaksi/data/export', 'App\Http\Controllers\Voyager\TransaksiController@download')->middleware('admin.user')->name('export.transaksi');
     Voyager::routes();
 });
 

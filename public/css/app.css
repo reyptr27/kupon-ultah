@@ -10271,6 +10271,10 @@ body {
   text-decoration: none;
 }
 
+.syarat {
+  padding-left: 15px;
+}
+
 @media screen and (max-width: 1050px) {
   .container {
     grid-gap: 2rem;
