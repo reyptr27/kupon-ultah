@@ -1004,26 +1004,34 @@ class TransaksiController extends VoyagerBaseController
 
     public function export()
     {  
+        session()->forget("from");
+        session()->forget("to");
+
         $transaksi = DB::table('transaksi')->paginate(10);
         return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi);
     }
     
     public function download(Request $request)
-    {
+    {      
+        
         $method = $request->method();
 
         if ($request->isMethod('post')){
-
+            
             $from = $request->input('from');
             $to   = $request->input('to');
             if ($request->has('search')) {
-                session()->flashInput($request->input());
+                
+                session()->put('from', $from);
+                session()->put('to', $to);
+                
+                //dd( $request);
                 
                 // select search
-                $search = DB::table('transaksi')->whereBetween('updated_at', [$from, $to])->paginate(10);
-                return view('vendor.voyager.transaksi.export',['transaksi' => $search]);
+                $transaksi = DB::table('transaksi')->whereBetween('updated_at', [$from, $to])->paginate(10);
+                return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi)->with('from', $from)->with('to', $to);
             
-            } elseif($request->has('exportExcel')){ 
+            } elseif($request->has(['exportExcel', 'from', 'to'])){ 
                 //dd($request); 
                 // select Excel
                 return Excel::download(new TransaksiExport($from, $to), 'Excel-reports.xlsx');
@@ -1031,9 +1039,13 @@ class TransaksiController extends VoyagerBaseController
             } else {
             
                 //select all
-                $transaksi = DB::table('transaksi')->paginate(10);
-                return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi);
+                return Excel::download(new TransaksiExport, 'Excel-reports.xlsx');
             }  
+            
+        }else {
+            //select all
+            $transaksi = DB::table('transaksi')->paginate(10);
+            return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi);
         }
     }
     

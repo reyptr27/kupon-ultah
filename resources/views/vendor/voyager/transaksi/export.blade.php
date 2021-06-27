@@ -25,12 +25,13 @@
 
                         <div class="form-group">
                             <label for="from"><b>From</b></label>
-                            <input type="date" class="form-control" id="from" name="from" value="{{ old('from') }}">
+                            <input type="date" class="form-control" id="from" name="from"
+                                value="{{ Session::get('from') }}">
                         </div>
 
                         <div class="form-group">
                             <label for="to"><b>To</b></label>
-                            <input type="date" class="form-control" id="to" name="to" value="{{ old('to') }}">
+                            <input type="date" class="form-control" id="to" name="to" value="{{ Session::get('to') }}">
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-sm" name="search">
