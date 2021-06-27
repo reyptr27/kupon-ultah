@@ -20,10 +20,13 @@ use App\Http\Controllers\TransaksiController;
 
 
 Route::group(['prefix' => 'admin'], function () {
+    //kupon import
     Route::get('kupon/import', 'App\Http\Controllers\Voyager\KuponController@import')->middleware('admin.user')->name('import.kupon');
     Route::post('kupon/import', 'App\Http\Controllers\Voyager\KuponController@simpan')->middleware('admin.user')->name('simpan.kupon');
-    Route::get('kupon/format', 'App\Http\Controllers\Voyager\KuponController@format')->middleware('admin.user')->name('format.kupon');
-    Route::post('kupon/format', 'App\Http\Controllers\Voyager\KuponController@hapus')->middleware('admin.user')->name('hapus.kupon');
+    //Format data
+    Route::get('format', 'App\Http\Controllers\Voyager\KuponController@format')->middleware('admin.user')->name('format.kupon');
+    Route::post('format', 'App\Http\Controllers\Voyager\KuponController@hapus')->middleware('admin.user')->name('hapus.kupon');
+    //export transaksi
     Route::get('transaksi/data', 'App\Http\Controllers\Voyager\TransaksiController@export')->middleware('admin.user')->name('data.transaksi');
     Route::post('transaksi/data/export', 'App\Http\Controllers\Voyager\TransaksiController@download')->middleware('admin.user')->name('download.transaksi');
     Route::get('transaksi/data/export', 'App\Http\Controllers\Voyager\TransaksiController@download')->middleware('admin.user')->name('export.transaksi');
