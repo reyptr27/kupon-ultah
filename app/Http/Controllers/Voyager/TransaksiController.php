@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Voyager;
 
 use Exception;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use App\Exports\TransaksiExport;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use TCG\Voyager\Database\Schema\SchemaManager;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
-use App\Exports\TransaksiExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class TransaksiController extends VoyagerBaseController
 {
@@ -1000,7 +1003,38 @@ class TransaksiController extends VoyagerBaseController
     }
 
     public function export()
-    {
-        return view('vendor.voyager.transaksi.export');
+    {  
+        $transaksi = DB::table('transaksi')->paginate(10);
+        return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi);
     }
+    
+    public function download(Request $request)
+    {
+        $method = $request->method();
+
+        if ($request->isMethod('post')){
+
+            $from = $request->input('from');
+            $to   = $request->input('to');
+            if ($request->has('search')) {
+                session()->flashInput($request->input());
+                
+                // select search
+                $search = DB::table('transaksi')->whereBetween('updated_at', [$from, $to])->paginate(10);
+                return view('vendor.voyager.transaksi.export',['transaksi' => $search]);
+            
+            } elseif($request->has('exportExcel')){ 
+                //dd($request); 
+                // select Excel
+                return Excel::download(new TransaksiExport($from, $to), 'Excel-reports.xlsx');
+            
+            } else {
+            
+                //select all
+                $transaksi = DB::table('transaksi')->paginate(10);
+                return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi);
+            }  
+        }
+    }
+    
 }

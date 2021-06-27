@@ -1008,6 +1008,13 @@ class KuponController extends VoyagerBaseController
 
     public function simpan(Request $request)
     {
+        $request->validate([
+           'file' => 'required|mimes:xls,xlsx,csv'
+        ], [
+            'file.required' => 'Please upload the import file first!',
+            'file.mimes' => 'Only accepts files with the extension xls, xlsx and csv!'
+        ]);
+
         $file = $request->file('file')->store('import');
 
         (new KuponImport)->import($file);
