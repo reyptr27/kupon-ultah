@@ -13,7 +13,7 @@
     <div class="_body">
         <div class="_box">
             <h2>
-                Terimakasi telah berbelanja di <strong>Roti MOX</strong>.
+                Terimakasih telah berbelanja di <strong>Roti MOX</strong>.
             </h2>
 
             <p>

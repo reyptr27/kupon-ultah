@@ -1013,35 +1013,48 @@ class TransaksiController extends VoyagerBaseController
     
     public function download(Request $request)
     {      
+        // $request->validate([
+        //     'from' => 'required',
+        //     'to' => 'required'
+        // ]);
         
         $method = $request->method();
 
         if ($request->isMethod('post')){
             
             $from = $request->input('from');
-            $to   = $request->input('to');
+            $to = $request->input('to');
+            //dd($from);
             if ($request->has('search')) {
-                
+
                 session()->put('from', $from);
                 session()->put('to', $to);
-                
-                //dd( $request);
-                
-                // select search
-                $transaksi = DB::table('transaksi')->whereBetween('updated_at', [$from, $to])->paginate(10);
-                return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi)->with('from', $from)->with('to', $to);
+                if ($to !=  null) {
+
+                    // select search
+                    $transaksi = DB::table('transaksi')->whereBetween('updated_at', [$from.' 00:00:00', $to.' 23:59:59'])->paginate(10);
+                    // dd($transaksi);
+                    return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi)->with('from', $from)->with('to', $to);
+
+                } else {
+
+                    //select all
+                    $transaksi = DB::table('transaksi')->where('updated_at', '>=', $from.' 00:00:00')->paginate(10);
+                    return view('vendor.voyager.transaksi.export')->with('transaksi', $transaksi);
+                    
+                }
             
             } elseif($request->has(['exportExcel', 'from', 'to'])){ 
                 //dd($request); 
                 // select Excel
-                return Excel::download(new TransaksiExport($from, $to), 'Excel-reports.xlsx');
+                return Excel::download(new TransaksiExport($from, $to), 'Transaksi-reports.xlsx');
             
             } else {
             
                 //select all
-                return Excel::download(new TransaksiExport, 'Excel-reports.xlsx');
+                return Excel::download(new TransaksiExport, 'Transaksi-reports.xlsx');
             }  
-            
+
         }else {
             //select all
             $transaksi = DB::table('transaksi')->paginate(10);

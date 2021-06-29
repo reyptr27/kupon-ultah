@@ -27,11 +27,15 @@ class TransaksiExport implements FromCollection, WithHeadings, ShouldAutoSize, W
     */
     public function collection()
     {
-        if($this->from != null) {
-        //dd($this->from);
-        return Transaksi::whereBetween('updated_at', [$this->from, $this->to])->get();
+        if($this->to != null) {
+        
+            //dd($this->from);
+        return Transaksi::whereBetween('updated_at', [$this->from.' 00:00:00', $this->to.' 23:59:59'])->get();
+        
         }else {
-            return Transaksi::all();
+
+            return Transaksi::where('updated_at', '>=', $this->from.' 00:00:00')->get();
+
         }
     }
 
