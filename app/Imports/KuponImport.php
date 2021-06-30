@@ -29,7 +29,7 @@ class KuponImport implements ToModel, WithHeadingRow, WithValidation, WithBatchI
     public function rules(): array
     {
         return [
-            '*.kode_kupon' => ['required', 'alpha_num', 'regex:/^[a-z0-9]*$/', 'size:10', 'unique:kupon,kode_kupon'],
+            '*.kode_kupon' => ['required', 'alpha_num', 'size:10', 'unique:kupon,kode_kupon'],
             '*.jumlah' => ['required', 'numeric', 'digits:1', 'min:1'] 
         ];
     }
@@ -37,7 +37,6 @@ class KuponImport implements ToModel, WithHeadingRow, WithValidation, WithBatchI
     public function customValidationMessages()
     {
         return [
-            'kode_kupon.regex' => 'This :attribute field must contain only lowercase letters.',
             'jumlah.digits' => 'Maximal value for :attribute = 9.',
             'jumlah.min' => 'Minimum value for :attribute = 1.',
         ];

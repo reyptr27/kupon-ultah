@@ -39,7 +39,7 @@
                         </button>
 
                         <div class="pull-right">
-                            <button type="submit" class="btn btn-success btn-sm" name="exportExcel">
+                            <button type="submit" class="btn btn-warning btn-sm" name="exportExcel">
                                 <i class="voyager-documentation"></i> Export Data
                             </button>
                         </div>

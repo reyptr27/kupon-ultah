@@ -20,4 +20,16 @@ class Kupon extends Model
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * Set the user's first name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setKodeKuponAttribute($kode_kupon)
+    {
+        //string to lowercase mutator
+        $this->attributes['kode_kupon'] = strtolower($kode_kupon);
+    }
 }
