@@ -143,7 +143,8 @@ class TransaksiController extends Controller
         $decryptid = Crypt::decryptString($id);
         //dd($id);
         $kupon = Kupon::findOrFail($decryptid);
-        //dd($kupon);
-        return view('berhasil')->with('kupon', $kupon);
+        $transaksi = DB::table('transaksi')->where('kode_kupon', $kupon->kode_kupon)->first();
+        //dd($transaksi);
+        return view('berhasil')->with('kupon', $kupon)->with('transaksi', $transaksi);
     }
 }

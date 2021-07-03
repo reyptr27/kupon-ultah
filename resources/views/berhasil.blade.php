@@ -17,7 +17,7 @@
             </h2>
 
             <p>
-                Selamat anda telah mendapatkan <b style="color: #ff0000"> {{ $kupon->jumlah }} </b> kupon dari kode:
+                Selamat anda telah mendapatkan <b style="color: #ff0000"> {{ $transaksi->jumlah }} </b> kupon dari kode:
                 <b style="color: #ff0000"> {{ $kupon->kode_kupon }} </b>.
             </p>
 
@@ -39,4 +39,7 @@
 @endsection
 
 @section('extra-js')
+<script>
+    fbq('track', 'Purchase', {currency: "IDR", value: {{ $transaksi->total }}});
+</script>
 @endsection
